@@ -3,8 +3,11 @@ import { useQuery, useMutation } from '@apollo/client';
 import { GET_RELEASES, GET_RELEASE, CREATE_RELEASE, DELETE_RELEASE, UPDATE_RELEASE, UPDATE_TICKET, CREATE_TICKET, DELETE_TICKET } from '../domain/queries';
 import { useDate } from '../../../hooks/useDate';
 import type { Release, Ticket } from '../types';
+import { useToast } from '../../../contexts/ToastContext';
+import { UI_STRINGS } from '../../../lib/constants';
 
 export function useReleases() {
+  const { showToast } = useToast();
   const { data, loading, error, refetch } = useQuery<{ getReleases: Release[] }>(GET_RELEASES, {
     fetchPolicy: 'network-only'
   });
@@ -12,6 +15,7 @@ export function useReleases() {
 
   const deleteRelease = async (id: string) => {
     await deleteReleaseMutation({ variables: { id } });
+    showToast(UI_STRINGS.SUCCESS_DELETE_RELEASE);
     refetch();
   };
 
@@ -25,6 +29,7 @@ export function useReleases() {
 }
 
 export function useCreateRelease() {
+  const { showToast } = useToast();
   const [createReleaseMutation] = useMutation(CREATE_RELEASE);
   
   const createRelease = async (name: string, date: string) => {
@@ -32,12 +37,14 @@ export function useCreateRelease() {
       variables: { input: { name, date } },
       refetchQueries: [{ query: GET_RELEASES }]
     });
+    showToast(UI_STRINGS.SUCCESS_CREATE_RELEASE);
   };
 
   return { createRelease };
 }
 
 export function useReleaseDetailLogic(id: string, onDeleted: () => void) {
+  const { showToast } = useToast();
   const { data, loading, refetch } = useQuery<{ getRelease: Release }>(GET_RELEASE, {
     variables: { id },
     skip: !id,
@@ -73,12 +80,14 @@ export function useReleaseDetailLogic(id: string, onDeleted: () => void) {
       await updateTicketMutation({
         variables: { id, title: title.trim() }
       });
+      showToast(UI_STRINGS.SUCCESS_UPDATE_TICKET);
       refetch();
     }
   };
 
   const handleDeleteTicket = async (id: string) => {
     await deleteTicketMutation({ variables: { id } });
+    showToast(UI_STRINGS.SUCCESS_DELETE_TICKET);
     refetch();
   };
 
@@ -87,6 +96,7 @@ export function useReleaseDetailLogic(id: string, onDeleted: () => void) {
       await createTicketMutation({
         variables: { releaseId: release.id, title: title.trim() }
       });
+      showToast(UI_STRINGS.SUCCESS_CREATE_TICKET);
       refetch();
     }
   };
@@ -96,6 +106,7 @@ export function useReleaseDetailLogic(id: string, onDeleted: () => void) {
       await updateRelease({
         variables: { input: { id: release.id, additionalInfo } }
       });
+      showToast(UI_STRINGS.SUCCESS_UPDATE_RELEASE);
       refetch();
     }
   };
@@ -103,6 +114,7 @@ export function useReleaseDetailLogic(id: string, onDeleted: () => void) {
   const handleDelete = async () => {
     if (release) {
       await deleteReleaseMutation({ variables: { id: release.id } });
+      showToast(UI_STRINGS.SUCCESS_DELETE_RELEASE);
       onDeleted();
     }
   };

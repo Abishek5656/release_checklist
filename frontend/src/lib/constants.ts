@@ -33,4 +33,10 @@ export const UI_STRINGS = {
   STATUS_DONE: "Done",
   ACTIONS_LABEL: "Actions",
   STATUS_LABEL: "Status",
+  SUCCESS_CREATE_RELEASE: "Release created successfully",
+  SUCCESS_UPDATE_RELEASE: "Release updated successfully",
+  SUCCESS_DELETE_RELEASE: "Release deleted successfully",
+  SUCCESS_CREATE_TICKET: "Ticket created successfully",
+  SUCCESS_UPDATE_TICKET: "Ticket updated successfully",
+  SUCCESS_DELETE_TICKET: "Ticket deleted successfully",
 };

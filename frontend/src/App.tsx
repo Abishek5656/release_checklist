@@ -3,6 +3,7 @@ import { ListReleasesScreen } from './features/releases/screens/ListReleasesScre
 import { ReleaseDetailScreen } from './features/releases/screens/ReleaseDetailScreen';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
+import { ToastProvider } from './contexts/ToastContext';
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql',
@@ -23,13 +24,15 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
+        <ToastProvider>
+          <CssBaseline />
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<ListReleasesScreen />} />
             <Route path="/release/:id" element={<ReleaseDetailScreen />} />
           </Routes>
         </BrowserRouter>
+        </ToastProvider>
       </ThemeProvider>
     </ApolloProvider>
   );
