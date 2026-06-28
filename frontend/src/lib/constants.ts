@@ -1,0 +1,36 @@
+export const RELEASE_STEPS = [
+  "All relevant GitHub pull requests have been merged",
+  "CHANGELOG.md files have been updated",
+  "All tests are passing",
+  "Releases in GitHub created",
+  "Deployed in demo",
+  "Tested thoroughly in demo",
+  "Deployed in production"
+];
+
+export const UI_STRINGS = {
+  APP_TITLE: "ReleaseCheck",
+  APP_SUBTITLE: "Your all-in-one release checklist tool",
+  ALL_RELEASES: "All releases",
+  DELETE_BTN: "Delete 🗑",
+  RELEASE_LABEL: "Release",
+  DATE_LABEL: "Date",
+  ADDITIONAL_REMARKS_LABEL: "Additional remarks / tasks",
+  ADDITIONAL_REMARKS_PLACEHOLDER: "Please enter any other important notes for the release",
+  SAVE_BTN: "Save ✓",
+  LOADING_DETAILS: "Loading release details...",
+  NOT_FOUND: "Release not found",
+  NEW_RELEASE_BTN: "New release ⊕",
+  CREATE_RELEASE_TITLE: "Create New Release",
+  RELEASE_NAME_LABEL: "Release Name",
+  RELEASE_DATE_LABEL: "Release Date",
+  CANCEL_BTN: "Cancel",
+  CREATE_BTN: "Create",
+  LOADING_RELEASES: "Loading releases...",
+  NO_RELEASES: "No releases found. Create one above.",
+  STATUS_PLANNED: "Planned",
+  STATUS_ONGOING: "Ongoing",
+  STATUS_DONE: "Done",
+  ACTIONS_LABEL: "Actions",
+  STATUS_LABEL: "Status",
+};
