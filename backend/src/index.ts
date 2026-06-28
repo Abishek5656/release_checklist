@@ -10,17 +10,17 @@ import NodeCache from 'node-cache';
 const app = express();
 const cache = new NodeCache({ stdTTL: 100, checkperiod: 120 });
 
+app.use(cors());
+app.use(express.json());
+
 // Rate Limiting
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+  max: 500, // Increased limit to prevent issues during dev
   standardHeaders: true,
   legacyHeaders: false,
 });
 app.use(limiter);
-
-app.use(cors());
-app.use(express.json());
 
 const server = new ApolloServer({
   typeDefs,
